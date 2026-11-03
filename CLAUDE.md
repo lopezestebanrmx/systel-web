@@ -16,7 +16,7 @@ Run `npm run build && npm run lint` before calling a change done.
 
 ## Warranty generator (`tools/garantia/`)
 
-A local, offline tool that is not part of the site build and is never published (customer data must stay on the owner's computer). The owner fills in a repair and downloads a branded PNG for WhatsApp (canvas, 1080 wide, at least 1350 tall, growing with the content), plus a copyable message. The warranty is 90 days from the repair date (`DAYS`). Its text covers the scope, duration, conditions and how to claim, as LFPC art. 78 asks. It names no address: art. 78 also asks for a "domicilio para reclamaciones", and the owner was told about that gap. Edit `template.html`, never the built file.
+A local, offline tool that is not part of the site build and is never published (customer data must stay on the owner's computer). The owner fills in a repair and downloads a branded PNG for WhatsApp (canvas, 1080 wide, at least 1350 tall, growing with the content), plus a copyable message. The warranty is 90 days from the repair date (`DAYS`). Its text covers the scope, duration, conditions and how to claim, as LFPC art. 78 asks. It names no address by the owner's decision (2026-11-03), although art. 78 also asks for a "domicilio para reclamaciones"; don't add one. Edit `template.html`, never the built file.
 
 ## How it works
 
