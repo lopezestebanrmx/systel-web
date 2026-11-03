@@ -3,17 +3,18 @@ import { ZONES_INCLUDED, ZONES_NEGOTIATED } from '@/site'
 import { REVIEW_FEE } from '@/content/home'
 import { Section } from '@/components/Section'
 
-function ZoneList({ Icon, title, text, zones, accent }: { Icon: LucideIcon; title: string; text: string; zones: string[]; accent: string }) {
+function ZoneList({ Icon, title, text, zones, bar }: { Icon: LucideIcon; title: string; text: string; zones: string[]; bar: string }) {
   return (
-    <div className={`border border-acero border-t-2 bg-grafito p-6 sm:p-8 ${accent}`}>
+    <div className="card relative p-6 sm:p-8">
+      <div aria-hidden="true" className={`absolute inset-x-0 top-0 h-1 ${bar}`} />
       <h3 className="flex items-center gap-2.5 text-2xl font-semibold">
-        <Icon className="size-6 shrink-0 text-cian" aria-hidden />
+        <Icon className="size-6 shrink-0 text-accent" aria-hidden />
         {title}
       </h3>
-      <p className="mt-2 text-niebla">{text}</p>
+      <p className="mt-2 text-muted">{text}</p>
       <ul className="mt-5 grid gap-2 text-lg">
         {zones.map((zone) => (
-          <li key={zone} className="border-b border-acero pb-2 last:border-0">
+          <li key={zone} className="border-b border-line pb-2 last:border-0">
             {zone}
           </li>
         ))}
@@ -24,21 +25,21 @@ function ZoneList({ Icon, title, text, zones, accent }: { Icon: LucideIcon; titl
 
 export function Zones() {
   return (
-    <Section id="zonas" label="03 · Cobertura" title="Zonas donde te visitamos">
-      <div className="grid gap-4 md:grid-cols-2">
+    <Section id="zonas" tone="alt" label="03 · Cobertura" title="Zonas donde te visitamos">
+      <div className="grid gap-5 md:grid-cols-2">
         <ZoneList
           Icon={CircleCheck}
           title="Traslado incluido"
           text={`En celulares, la revisión de ${REVIEW_FEE} ya incluye que el técnico llegue a ti.`}
           zones={ZONES_INCLUDED}
-          accent="border-t-cian"
+          bar="bg-cian"
         />
         <ZoneList
           Icon={Handshake}
           title="Traslado a convenir"
           text="También vamos. El costo del traslado lo acordamos contigo por WhatsApp antes de agendar."
           zones={ZONES_NEGOTIATED}
-          accent="border-t-cobalto"
+          bar="bg-cobalto"
         />
       </div>
     </Section>

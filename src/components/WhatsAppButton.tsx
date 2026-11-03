@@ -14,8 +14,8 @@ type Props = {
 export function WhatsAppButton({ topic, children, variant = 'primary', size = 'md', className = '' }: Props) {
   const look =
     variant === 'primary'
-      ? 'bg-cian text-void hover:bg-hielo shadow-[0_0_32px_-6px_rgba(34,211,238,0.45)]'
-      : 'border border-cian/60 text-hielo hover:border-cian hover:bg-cian/10'
+      ? 'bg-accent text-on-accent hover:bg-accent-hover shadow-[0_8px_24px_-10px_rgba(38,89,230,0.55)]'
+      : 'border border-accent text-accent hover:bg-accent hover:text-on-accent'
   const dims = size === 'md' ? 'min-h-12 px-6' : 'min-h-10 px-4 text-sm'
   return (
     <a

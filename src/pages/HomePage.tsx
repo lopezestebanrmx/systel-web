@@ -13,7 +13,7 @@ import { FinalCta } from '@/sections/FinalCta'
 export function HomePage() {
   return (
     <>
-      <a href="#contenido" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-cian focus:px-4 focus:py-2 focus:text-void">
+      <a href="#contenido" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent">
         Saltar al contenido
       </a>
       <Header />

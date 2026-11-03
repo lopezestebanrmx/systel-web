@@ -6,31 +6,22 @@ import { WhatsAppButton } from '@/components/WhatsAppButton'
 
 type Service = { label: string; title: string; text: string; points: string[] }
 
-function ServiceCard({
-  service,
-  Icon,
-  featured = false,
-  children,
-}: {
-  service: Service
-  Icon: LucideIcon
-  featured?: boolean
-  children: ReactNode
-}) {
+function ServiceCard({ service, Icon, children }: { service: Service; Icon: LucideIcon; children: ReactNode }) {
   return (
-    <article
-      className={`flex flex-col gap-5 border border-acero bg-grafito p-6 sm:p-8 ${featured ? 'border-t-2 border-t-cian' : ''}`}
-    >
+    <article className="card relative flex flex-col gap-5 p-6 sm:p-8">
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-cian to-cobalto" />
       <div className="flex items-center justify-between gap-3">
-        <p className={`label-mono ${featured ? 'text-cian' : 'text-niebla'}`}>{service.label}</p>
-        <Icon className="size-6 text-cobalto" aria-hidden />
+        <p className="label-mono text-accent">{service.label}</p>
+        <span className="grid size-11 place-items-center rounded-full bg-accent/10">
+          <Icon className="size-6 text-accent" aria-hidden />
+        </span>
       </div>
       <h3 className="text-3xl font-semibold">{service.title}</h3>
-      <p className="text-niebla">{service.text}</p>
+      <p className="text-muted">{service.text}</p>
       <ul className="grid gap-3">
         {service.points.map((point) => (
           <li key={point} className="grid grid-cols-[1.25rem_1fr] gap-2.5">
-            <Check className="mt-1 size-4 text-cian" aria-hidden />
+            <Check className="mt-1 size-4 text-accent" aria-hidden />
             <span>{point}</span>
           </li>
         ))}
@@ -44,12 +35,13 @@ export function Services() {
   return (
     <Section
       id="servicios"
+      tone="alt"
       label="01 · Servicios"
       title="Soluciones tecnológicas integrales en Monterrey"
       intro="Reparamos tu celular donde estés, armamos tu computadora y desarrollamos el software de tu negocio."
     >
-      <div className="grid gap-4 lg:grid-cols-3">
-        <ServiceCard service={REPAIR_SERVICE} Icon={Smartphone} featured>
+      <div className="grid gap-5 lg:grid-cols-3">
+        <ServiceCard service={REPAIR_SERVICE} Icon={Smartphone}>
           <WhatsAppButton topic="reparacion" className="w-full">
             Cotiza tu reparación
           </WhatsAppButton>
@@ -62,7 +54,7 @@ export function Services() {
         <ServiceCard service={SOFTWARE_SERVICE} Icon={Bot}>
           <a
             href="#software"
-            className="inline-flex min-h-12 w-full items-center justify-center border border-acero px-6 font-semibold transition-colors hover:border-niebla"
+            className="inline-flex min-h-12 w-full items-center justify-center border border-line px-6 font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
           >
             Ver qué hacemos
           </a>

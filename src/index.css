@@ -8,8 +8,16 @@
 @import '@fontsource/manrope/latin-600.css';
 @import '@fontsource/jetbrains-mono/latin-500.css';
 
-/* Brand guide 2026 (Pictures\Systel\guia-marca-systel-2026.html). Dark only, by design. */
+/*
+ * Light theme with two dark blocks (Software e IA and the footer).
+ * Components use only the semantic tokens below; `.theme-dark` redefines them,
+ * so a dark block is a class, not a second set of colors per component.
+ * Contrast (WCAG 2.1), light: ink 18.7:1, muted 6.2:1 on white / 5.7:1 on page-alt,
+ * accent 5.8:1 / 5.3:1, white on accent 5.8:1, danger icon 4.6:1.
+ * Dark: ink 17.6:1, muted 7.1:1, accent (cian) 11.1:1, void on cian 11.1:1.
+ */
 @theme {
+  /* Brand palette (guide 2026). Cian is decoration only on light backgrounds: 1.8:1 on white. */
   --color-void: #05080f;
   --color-grafito: #0b1220;
   --color-acero: #1b2740;
@@ -19,6 +27,20 @@
   --color-cian: #22d3ee;
   --color-alerta: #ff5c7a;
 
+  /* Semantic tokens (light). */
+  --color-page: #ffffff;
+  --color-page-alt: #f2f6fc;
+  --color-surface: #ffffff;
+  --color-line: #dce3ee;
+  --color-ink: #0b1220;
+  --color-ink-strong: #05080f;
+  --color-muted: #556179;
+  /* Cobalto darkened for text and buttons: #2F6BFF is only 4.5:1 on white and 4.2:1 on page-alt. */
+  --color-accent: #2659e6;
+  --color-accent-hover: #1b47bd;
+  --color-on-accent: #ffffff;
+  --color-danger: #d9325a;
+
   --font-display: 'Saira Condensed', 'Arial Narrow', 'Roboto Condensed', sans-serif;
   --font-sans: 'Manrope', 'Segoe UI', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
@@ -26,7 +48,7 @@
 
 @layer base {
   html {
-    color-scheme: dark;
+    color-scheme: light;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
@@ -36,31 +58,54 @@
     }
   }
   body {
-    @apply bg-void font-sans text-base leading-relaxed text-hielo antialiased;
+    @apply bg-page font-sans text-base leading-relaxed text-ink antialiased;
   }
   h1,
   h2,
   h3 {
-    @apply font-display leading-[1.05] text-balance;
+    @apply font-display leading-[1.05] text-balance text-ink-strong;
   }
   /* Sticky header height, so anchors don't hide under it. */
   section[id] {
     scroll-margin-top: 4.5rem;
   }
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-cian;
+    @apply outline-2 outline-offset-2 outline-accent;
   }
   ::selection {
     @apply bg-cian text-void;
   }
 }
 
+/* A dark block: same components, brand-dark values. */
+.theme-dark {
+  --color-page: var(--color-void);
+  --color-page-alt: var(--color-grafito);
+  --color-surface: var(--color-grafito);
+  --color-line: var(--color-acero);
+  --color-ink: var(--color-hielo);
+  --color-ink-strong: var(--color-hielo);
+  --color-muted: var(--color-niebla);
+  --color-accent: var(--color-cian);
+  --color-accent-hover: var(--color-hielo);
+  --color-on-accent: var(--color-void);
+  --color-danger: var(--color-alerta);
+  color-scheme: dark;
+  background-color: var(--color-page);
+  color: var(--color-ink);
+}
+
 @utility label-mono {
   @apply font-mono text-xs font-medium tracking-[0.14em] uppercase;
 }
 
-/* Faint honeycomb of the brand's cells behind the hero (decorative). */
+/* White card with a subtle border and a light shadow (flat on dark blocks). */
+@utility card {
+  @apply border border-line bg-surface shadow-[0_1px_2px_rgba(5,8,15,0.04),0_12px_32px_-16px_rgba(11,18,32,0.18)];
+}
+
+/* Faint honeycomb of the brand's cells (decorative). */
 @utility honeycomb {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='96' viewBox='0 0 56 96'%3E%3Cpath d='M28 0l28 16v32L28 64 0 48V16zM28 64v32' fill='none' stroke='%231B2740' stroke-width='1'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='96' viewBox='0 0 56 96'%3E%3Cpath d='M28 0l28 16v32L28 64 0 48V16zM28 64v32' fill='none' stroke='%232F6BFF' stroke-opacity='0.09' stroke-width='1'/%3E%3C/svg%3E");
   background-size: 56px 96px;
 }

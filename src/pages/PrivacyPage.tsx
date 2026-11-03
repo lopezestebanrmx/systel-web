@@ -10,7 +10,7 @@ function withEmailLink(text: string) {
   return (
     <>
       {before}
-      <a href={`mailto:${CONTACT_EMAIL}`} className="text-cian underline underline-offset-4">
+      <a href={`mailto:${CONTACT_EMAIL}`} className="text-accent underline underline-offset-4">
         {CONTACT_EMAIL}
       </a>
       {after}
@@ -23,15 +23,15 @@ export function PrivacyPage() {
     <>
       <Header />
       <main id="contenido" className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-20">
-        <p className="label-mono text-cian">{LEGAL_NAME}</p>
+        <p className="label-mono text-accent">{LEGAL_NAME}</p>
         <h1 className="mt-3 text-5xl font-bold sm:text-6xl">Aviso de privacidad</h1>
-        <p className="mt-3 font-mono text-sm text-niebla">Última actualización: {PRIVACY_UPDATED}</p>
+        <p className="mt-3 font-mono text-sm text-muted">Última actualización: {PRIVACY_UPDATED}</p>
         <div className="mt-10 grid gap-10">
           {PRIVACY_SECTIONS.map((section) => (
-            <section key={section.title} className="grid gap-3 border-t border-acero pt-6">
+            <section key={section.title} className="grid gap-3 border-t border-line pt-6">
               <h2 className="text-3xl font-semibold">{section.title}</h2>
               {section.paragraphs.map((p) => (
-                <p key={p} className="text-niebla">
+                <p key={p} className="text-muted">
                   {withEmailLink(p)}
                 </p>
               ))}
@@ -39,7 +39,7 @@ export function PrivacyPage() {
           ))}
         </div>
         <p className="mt-12">
-          <a href="/" className="font-semibold text-cian underline underline-offset-4">
+          <a href="/" className="font-semibold text-accent underline underline-offset-4">
             ← Volver al inicio
           </a>
         </p>
