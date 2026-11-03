@@ -1,0 +1,66 @@
+@import 'tailwindcss';
+
+/* Self-hosted fonts (latin subset only, which covers Spanish): no request ever leaves the site. */
+@import '@fontsource/saira-condensed/latin-300.css';
+@import '@fontsource/saira-condensed/latin-600.css';
+@import '@fontsource/saira-condensed/latin-700.css';
+@import '@fontsource/manrope/latin-400.css';
+@import '@fontsource/manrope/latin-600.css';
+@import '@fontsource/jetbrains-mono/latin-500.css';
+
+/* Brand guide 2026 (Pictures\Systel\guia-marca-systel-2026.html). Dark only, by design. */
+@theme {
+  --color-void: #05080f;
+  --color-grafito: #0b1220;
+  --color-acero: #1b2740;
+  --color-niebla: #8d9ab3;
+  --color-hielo: #e8f1ff;
+  --color-cobalto: #2f6bff;
+  --color-cian: #22d3ee;
+  --color-alerta: #ff5c7a;
+
+  --font-display: 'Saira Condensed', 'Arial Narrow', 'Roboto Condensed', sans-serif;
+  --font-sans: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  body {
+    @apply bg-void font-sans text-base leading-relaxed text-hielo antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display leading-[1.05] text-balance;
+  }
+  /* Sticky header height, so anchors don't hide under it. */
+  section[id] {
+    scroll-margin-top: 4.5rem;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-cian;
+  }
+  ::selection {
+    @apply bg-cian text-void;
+  }
+}
+
+@utility label-mono {
+  @apply font-mono text-xs font-medium tracking-[0.14em] uppercase;
+}
+
+/* Faint honeycomb of the brand's cells behind the hero (decorative). */
+@utility honeycomb {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='96' viewBox='0 0 56 96'%3E%3Cpath d='M28 0l28 16v32L28 64 0 48V16zM28 64v32' fill='none' stroke='%231B2740' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 56px 96px;
+}
