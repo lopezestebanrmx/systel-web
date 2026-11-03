@@ -28,7 +28,7 @@ Run `npm run build && npm run lint` before calling a change done.
 
 - Never say the technician takes the device away or mention any fee for returning it. The message is: the technician comes to your home or office, repairs in front of you, you pay at the end.
 - The $300 review (trip included, credited to the repair) is for **phones only**; tablets and computers: "cotiza la revisión por WhatsApp".
-- Payment: cash or bank transfer, never card. Warranty: 30 days on repair and parts; excludes drops, moisture, devices opened by someone else and software; sent digitally by WhatsApp.
+- Payment: cash or bank transfer, never card. Warranty: 90 days on repair and parts (the legal minimum, LFPC art. 77; was 30 until 2026-11-03); excludes drops, moisture, devices opened by someone else and software; sent digitally by WhatsApp.
 - Hardware line: custom desktop builds and parts; never promise home delivery or installation.
 - FixFlow is mentioned by name as our own case, with no link.
 - No invented numbers, years, testimonials, reviews, client logos or software prices. Unknown data goes in as a visible `<Pending what="…" />`.

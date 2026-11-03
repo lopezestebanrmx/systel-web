@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Garantía digital · Systel MTY</title>
+<!--
+  Local tool, never published: fill a repair, download the warranty as a PNG and
+  send it on WhatsApp. Nothing leaves the browser. Built by tools/garantia/build.mjs,
+  which inlines the fonts and the logo so this one file works offline.
+-->
+<style>
+  @font-face { font-family: 'Saira Condensed'; font-weight: 700; src: url(data:font/woff2;base64,__FONT_SAIRA_700__) format('woff2'); }
+  @font-face { font-family: 'Manrope'; font-weight: 400; src: url(data:font/woff2;base64,__FONT_MANROPE_400__) format('woff2'); }
+  @font-face { font-family: 'Manrope'; font-weight: 600; src: url(data:font/woff2;base64,__FONT_MANROPE_600__) format('woff2'); }
+  @font-face { font-family: 'JetBrains Mono'; font-weight: 500; src: url(data:font/woff2;base64,__FONT_MONO_500__) format('woff2'); }
+  :root { --ink: #0b1220; --muted: #556179; --line: #dce3ee; --alt: #f2f6fc; --accent: #2659e6; --accent-hover: #1b47bd; --danger: #b4233f; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--alt); color: var(--ink); font: 400 16px/1.5 Manrope, 'Segoe UI', system-ui, sans-serif; }
+  main { max-width: 1120px; margin: 0 auto; padding: 24px 16px 48px; display: grid; gap: 24px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 900px) { main { grid-template-columns: 420px minmax(0, 1fr); align-items: start; } }
+  h1 { font: 700 34px/1.05 'Saira Condensed', 'Arial Narrow', sans-serif; margin: 0 0 4px; }
+  .note { color: var(--muted); font-size: 14px; margin: 0; }
+  form { background: #fff; border: 1px solid var(--line); padding: 20px; display: grid; gap: 14px; }
+  label { display: grid; gap: 4px; font-weight: 600; font-size: 14px; }
+  label small { font-weight: 400; color: var(--muted); }
+  input, textarea { font: inherit; padding: 10px 12px; border: 1px solid #b8c3d6; background: #fff; color: var(--ink); min-height: 44px; }
+  textarea { resize: vertical; min-height: 72px; }
+  input:focus-visible, textarea:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  [aria-invalid='true'] { border-color: var(--danger); }
+  .error { color: var(--danger); font-size: 13px; font-weight: 600; }
+  .row { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+  input, textarea { width: 100%; min-width: 0; }
+  .until { background: var(--alt); border: 1px solid var(--line); padding: 10px 12px; font-size: 14px; }
+  .until strong { color: var(--accent); }
+  .actions { display: grid; gap: 10px; }
+  button { font: 600 16px Manrope, sans-serif; min-height: 48px; border: 0; cursor: pointer; }
+  .primary { background: var(--accent); color: #fff; }
+  .primary:hover { background: var(--accent-hover); }
+  .secondary { background: #fff; color: var(--accent); border: 1px solid var(--accent); }
+  .status { min-height: 1.5em; font-size: 14px; color: var(--muted); margin: 0; }
+  .preview { background: #fff; border: 1px solid var(--line); padding: 12px; }
+  canvas { width: 100%; height: auto; display: block; border: 1px solid var(--line); }
+</style>
+</head>
+<body>
+<main>
+  <div style="display:grid;gap:16px">
+    <div>
+      <h1>Garantía digital</h1>
+      <p class="note">Llena los datos de la reparación, descarga la imagen y mándala por WhatsApp. Los datos no se guardan ni se envían a ningún lado: todo se queda en esta computadora.</p>
+    </div>
+    <form id="form" novalidate>
+      <label>Nombre del cliente
+        <input id="cliente" autocomplete="off" required aria-describedby="cliente-err" />
+        <span class="error" id="cliente-err"></span>
+      </label>
+      <label>Equipo <small>Marca y modelo, por ejemplo "iPhone 13"</small>
+        <input id="equipo" autocomplete="off" required aria-describedby="equipo-err" />
+        <span class="error" id="equipo-err"></span>
+      </label>
+      <label>IMEI o número de serie <small>(opcional) identifica el equipo cubierto</small>
+        <input id="imei" autocomplete="off" inputmode="numeric" />
+      </label>
+      <label>Reparación realizada <small>Qué se hizo y qué pieza se instaló</small>
+        <textarea id="reparacion" required aria-describedby="reparacion-err"></textarea>
+        <span class="error" id="reparacion-err"></span>
+      </label>
+      <div class="row">
+        <label>Fecha de la reparación
+          <input id="fecha" type="date" required aria-describedby="fecha-err" />
+          <span class="error" id="fecha-err"></span>
+        </label>
+        <label>Folio <small>(opcional)</small>
+          <input id="folio" autocomplete="off" placeholder="ORD-0001" />
+        </label>
+      </div>
+      <p class="until" id="until" aria-live="polite"></p>
+      <div class="actions">
+        <button type="submit" class="primary">Descargar imagen (PNG)</button>
+        <button type="button" class="secondary" id="copy">Copiar mensaje para WhatsApp</button>
+      </div>
+      <p class="status" id="status" role="status"></p>
+    </form>
+  </div>
+  <div class="preview">
+    <canvas id="card" width="1080" height="1350" role="img" aria-label="Vista previa de la garantía"></canvas>
+  </div>
+</main>
+<script>
+'use strict'
+const DAYS = 90
+const LOGO = 'data:image/svg+xml;base64,__LOGO__'
+const C = { white: '#FFFFFF', alt: '#F2F6FC', line: '#DCE3EE', ink: '#0B1220', strong: '#05080F', muted: '#556179', accent: '#2659E6', cian: '#22D3EE', cobalto: '#2F6BFF', danger: '#D9325A' }
+const COVERS = 'La reparación realizada y las piezas que instalamos.'
+const EXCLUDES = 'Golpes, humedad, equipos abiertos por otra persona y fallas de software.'
+const HOW = 'Escríbenos por WhatsApp con esta imagen o tu folio. Si la falla está cubierta, el técnico va a tu domicilio y la revisión y la reparación de garantía no tienen costo.'
+const CONTACT = ['SYSTEL MTY · WHATSAPP +52 229 851 9108', 'systel.ventas@gmail.com · systel-web.vercel.app']
+
+const $ = (id) => document.getElementById(id)
+const fields = ['cliente', 'equipo', 'imei', 'reparacion', 'fecha', 'folio']
+const canvas = $('card')
+const ctx = canvas.getContext('2d')
+const logo = new Image()
+
+function todayIso() {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+/** Dates are calendar days, read and shown in local time (no UTC shift). */
+function parseIso(iso) {
+  const [y, m, d] = iso.split('-').map(Number)
+  return new Date(y, m - 1, d)
+}
+function addDays(date, days) {
+  const d = new Date(date)
+  d.setDate(d.getDate() + days)
+  return d
+}
+const longDate = (d) => d.toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' })
+
+function values() {
+  const v = Object.fromEntries(fields.map((f) => [f, $(f).value.trim().replace(/\s+/g, ' ')]))
+  v.reparacion = $('reparacion').value.trim()
+  v.desde = v.fecha ? parseIso(v.fecha) : null
+  v.hasta = v.desde ? addDays(v.desde, DAYS) : null
+  return v
+}
+
+/** Wraps text to maxWidth; returns the lines (explicit newlines are kept). */
+function wrap(text, maxWidth) {
+  const lines = []
+  for (const para of text.split('\n')) {
+    let line = ''
+    for (const word of para.split(' ')) {
+      const test = line ? line + ' ' + word : word
+      if (ctx.measureText(test).width > maxWidth && line) {
+        lines.push(line)
+        line = word
+      } else line = test
+    }
+    lines.push(line)
+  }
+  return lines
+}
+function text(str, x, y, font, color, spacing = '0px') {
+  ctx.font = font
+  ctx.fillStyle = color
+  ctx.letterSpacing = spacing
+  ctx.fillText(str, x, y)
+  ctx.letterSpacing = '0px'
+}
+function block(str, x, y, maxWidth, font, color, lineHeight) {
+  ctx.font = font
+  ctx.fillStyle = color
+  for (const line of wrap(str, maxWidth)) {
+    ctx.fillText(line, x, y)
+    y += lineHeight
+  }
+  return y
+}
+
+const TERMS = [['Cubre', COVERS, C.accent], ['No cubre', EXCLUDES, C.danger], ['Cómo hacerla válida', HOW, C.accent]]
+
+function draw() {
+  const v = values()
+  const W = 1080, P = 80
+  // Repair data rows; a long repair wraps up to 3 lines.
+  const rows = [
+    ['Cliente', v.cliente || '—'],
+    ['Equipo', v.equipo || '—'],
+    ...(v.imei ? [['IMEI / serie', v.imei]] : []),
+    ['Reparación', v.reparacion || '—'],
+    ['Fecha', v.desde ? longDate(v.desde) : '—'],
+    ['Válida hasta', v.hasta ? longDate(v.hasta) : '—'],
+    ...(v.folio ? [['Folio', v.folio]] : []),
+  ]
+  const boxX = P, boxW = W - 2 * P, labelX = boxX + 32, valueX = boxX + 280, valueW = boxW - 280 - 32
+  ctx.font = '600 30px Manrope'
+  const heights = rows.map(([, value]) => Math.min(wrap(value.replace(/\n/g, ' '), valueW).length, 3) * 40 + 32)
+  const boxTop = 466, boxH = heights.reduce((a, b) => a + b, 0) + 16
+  // The image grows with the content (portrait, at least 4:5) so nothing overlaps.
+  ctx.font = '400 26px Manrope'
+  const termsH = TERMS.reduce((sum, [, body]) => sum + 42 + wrap(body, W - 2 * P).length * 36 + 22, 0)
+  const H = Math.max(1350, boxTop + boxH + 64 + termsH + 140)
+  if (canvas.height !== H) canvas.height = H
+  ctx.clearRect(0, 0, W, H)
+  ctx.fillStyle = C.white
+  ctx.fillRect(0, 0, W, H)
+  const glow = ctx.createRadialGradient(W - 60, 80, 0, W - 60, 80, 520)
+  glow.addColorStop(0, 'rgba(34,211,238,0.20)')
+  glow.addColorStop(0.5, 'rgba(47,107,255,0.07)')
+  glow.addColorStop(1, 'rgba(255,255,255,0)')
+  ctx.fillStyle = glow
+  ctx.fillRect(0, 0, W, H)
+  const bar = ctx.createLinearGradient(0, 0, W, 0)
+  bar.addColorStop(0, C.cian)
+  bar.addColorStop(1, C.cobalto)
+  ctx.fillStyle = bar
+  ctx.fillRect(0, 0, W, 14)
+
+  if (logo.complete && logo.naturalWidth) ctx.drawImage(logo, P - 8, 62, 372, 100)
+  text('PÓLIZA DE GARANTÍA DIGITAL', P, 222, '500 24px "JetBrains Mono"', C.accent, '3px')
+  text(`${DAYS} días`, P, 360, '700 150px "Saira Condensed"', C.strong)
+  text('de garantía en la reparación y las piezas', P, 414, '600 32px Manrope', C.ink)
+
+  ctx.fillStyle = C.alt
+  ctx.fillRect(boxX, boxTop, boxW, boxH)
+  ctx.strokeStyle = C.line
+  ctx.lineWidth = 2
+  ctx.strokeRect(boxX + 1, boxTop + 1, boxW - 2, boxH - 2)
+  ctx.fillStyle = C.cian
+  ctx.fillRect(boxX, boxTop, 6, boxH)
+  let y = boxTop + 8
+  rows.forEach(([label, value], i) => {
+    const top = y
+    text(label, labelX, top + 50, '400 26px Manrope', C.muted)
+    ctx.font = '600 30px Manrope'
+    ctx.fillStyle = label === 'Válida hasta' ? C.accent : C.ink
+    wrap(value.replace(/\n/g, ' '), valueW).slice(0, 3).forEach((line, j) => ctx.fillText(line, valueX, top + 50 + j * 40))
+    y += heights[i]
+    if (i < rows.length - 1) {
+      ctx.fillStyle = C.line
+      ctx.fillRect(labelX, y, boxW - 64, 2)
+    }
+  })
+
+  // Terms.
+  y = boxTop + boxH + 64
+  for (const [title, body, color] of TERMS) {
+    ctx.fillStyle = color
+    ctx.fillRect(P, y - 22, 8, 22)
+    text(title, P + 22, y, '600 28px Manrope', C.strong)
+    y = block(body, P, y + 42, W - 2 * P, '400 26px Manrope', C.muted, 36) + 22
+  }
+
+  ctx.fillStyle = C.line
+  ctx.fillRect(P, H - 128, W - 2 * P, 2)
+  text(CONTACT[0], P, H - 82, '500 22px "JetBrains Mono"', C.ink, '1px')
+  text(CONTACT[1], P, H - 46, '500 22px "JetBrains Mono"', C.muted)
+}
+
+function validate() {
+  const v = values()
+  const errors = {
+    cliente: v.cliente ? '' : 'Escribe el nombre del cliente.',
+    equipo: v.equipo ? '' : 'Escribe la marca y el modelo.',
+    reparacion: v.reparacion ? '' : 'Describe la reparación.',
+    fecha: v.fecha ? '' : 'Elige la fecha.',
+  }
+  for (const [f, msg] of Object.entries(errors)) {
+    $(f + '-err').textContent = msg
+    $(f).setAttribute('aria-invalid', msg ? 'true' : 'false')
+  }
+  const first = Object.keys(errors).find((f) => errors[f])
+  if (first) $(first).focus()
+  return !first
+}
+
+function updateUntil() {
+  const v = values()
+  $('until').innerHTML = v.hasta
+    ? `Garantía de ${DAYS} días: válida hasta el <strong>${longDate(v.hasta)}</strong>.`
+    : 'Elige la fecha de la reparación.'
+}
+
+function message() {
+  const v = values()
+  const nombre = v.cliente.split(' ')[0]
+  return [
+    `¡Listo, ${nombre}! Tu ${v.equipo} quedó reparado. Te enviamos tu garantía digital:`,
+    '',
+    `• Reparación: ${v.reparacion.replace(/\s+/g, ' ')}`,
+    `• Garantía: ${DAYS} días, válida hasta el ${longDate(v.hasta)}`,
+    `• Cubre: ${COVERS.toLowerCase().replace(/\.$/, '')}.`,
+    `• No cubre: ${EXCLUDES.toLowerCase()}`,
+    '',
+    `Si algo falla, escríbenos por este WhatsApp${v.folio ? ` con tu folio ${v.folio}` : ''}. Gracias por confiar en Systel.`,
+  ].join('\n')
+}
+
+function slug(s) {
+  return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40)
+}
+
+$('form').addEventListener('submit', (e) => {
+  e.preventDefault()
+  if (!validate()) return
+  draw()
+  const v = values()
+  const a = document.createElement('a')
+  a.download = `garantia-systel-${v.fecha}-${slug(v.folio || v.cliente)}.png`
+  a.href = canvas.toDataURL('image/png')
+  a.click()
+  $('status').textContent = 'Imagen descargada. Mándala por WhatsApp junto con el mensaje.'
+})
+
+$('copy').addEventListener('click', async () => {
+  if (!validate()) return
+  try {
+    await navigator.clipboard.writeText(message())
+    $('status').textContent = 'Mensaje copiado. Pégalo en el chat del cliente.'
+  } catch {
+    $('status').textContent = 'No se pudo copiar. Selecciona el texto a mano.'
+    window.prompt('Copia el mensaje:', message())
+  }
+})
+
+for (const f of fields) $(f).addEventListener('input', () => { draw(); updateUntil() })
+$('fecha').value = todayIso()
+updateUntil()
+logo.onload = draw
+logo.src = LOGO
+document.fonts.ready.then(() => Promise.all(['700 20px "Saira Condensed"', '400 20px Manrope', '600 20px Manrope', '500 20px "JetBrains Mono"'].map((f) => document.fonts.load(f)))).then(draw)
+draw()
+</script>
+</body>
+</html>

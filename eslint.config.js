@@ -17,7 +17,7 @@ export default tseslint.config(
     languageOptions: { ecmaVersion: 2022, globals: globals.browser },
   },
   {
-    files: ['scripts/**/*.mjs', 'vite.config.ts'],
+    files: ['scripts/**/*.mjs', 'tools/**/*.mjs', 'vite.config.ts'],
     languageOptions: { globals: globals.node },
   },
 )

@@ -11,7 +11,7 @@ export const REVIEW_FEE = '$300'
 export const HERO = {
   title: 'Reparamos tu celular frente a ti, en tu casa u oficina.',
   lead: `El técnico va a donde estés, te dice qué tiene tu equipo y lo repara frente a ti. Pagas al final. La revisión de tu celular cuesta ${REVIEW_FEE}, incluye el traslado y se abona a la reparación.`,
-  facts: [HOURS_LABEL, 'Garantía de 30 días', 'Pagas al final'],
+  facts: [HOURS_LABEL, 'Garantía de 90 días', 'Pagas al final'],
 }
 
 export const REPAIR_SERVICE = {
@@ -60,7 +60,7 @@ export const STEPS = [
 ]
 
 export const WARRANTY = {
-  days: '30 días',
+  days: '90 días',
   covers: 'La reparación y las piezas que instalamos.',
   delivery: 'Al terminar te la enviamos en formato digital por WhatsApp, así no se pierde y la tienes siempre a la mano.',
   excludes: ['Golpes', 'Humedad', 'Equipos abiertos por otra persona', 'Fallas de software'],
@@ -106,7 +106,7 @@ export const FAQ = [
   },
   {
     q: '¿Qué cubre la garantía?',
-    a: 'La reparación y las piezas, durante 30 días. No cubre golpes, humedad, equipos abiertos por otra persona ni fallas de software. Te la enviamos en formato digital por WhatsApp al terminar.',
+    a: 'La reparación y las piezas, durante 90 días. No cubre golpes, humedad, equipos abiertos por otra persona ni fallas de software. Te la enviamos en formato digital por WhatsApp al terminar.',
   },
   {
     q: '¿A qué zonas van?',
