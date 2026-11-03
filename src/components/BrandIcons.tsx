@@ -25,3 +25,11 @@ export function InstagramIcon({ className = 'size-5' }: { className?: string }) 
     </svg>
   )
 }
+
+export function GoogleIcon({ className = 'size-5' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+      <path d="M21.35 11.1H12v3.2h5.35c-.5 2.5-2.6 3.95-5.35 3.95a6.25 6.25 0 1 1 0-12.5c1.55 0 2.95.55 4.05 1.5l2.4-2.4A9.6 9.6 0 0 0 12 2.4a9.6 9.6 0 1 0 0 19.2c5.55 0 9.45-3.9 9.45-9.4 0-.38-.04-.75-.1-1.1z" />
+    </svg>
+  )
+}

@@ -15,6 +15,8 @@ export const WHATSAPP_DISPLAY = '+52 229 851 9108'
 export const FACEBOOK_URL = 'https://www.facebook.com/systelmty/'
 /** null until the account is ready; the footer shows it as pending. */
 export const INSTAGRAM_URL: string | null = 'https://www.instagram.com/systelmty/'
+/** Google Business Profile (service-area business, no address shown). */
+export const GOOGLE_PROFILE_URL = 'https://share.google/wL2yYKRBTq6BQGRHX'
 export const CONTACT_EMAIL = 'systel.ventas@gmail.com'
 
 export const HOURS_LABEL = 'Lunes a sábado, 10:00 a 19:00'
@@ -58,7 +60,7 @@ export function localBusinessJsonLd() {
     image: `${SITE_URL}${OG_IMAGE}`,
     telephone: `+${WHATSAPP_NUMBER}`,
     email: CONTACT_EMAIL,
-    sameAs: [FACEBOOK_URL, ...(INSTAGRAM_URL ? [INSTAGRAM_URL] : [])],
+    sameAs: [FACEBOOK_URL, ...(INSTAGRAM_URL ? [INSTAGRAM_URL] : []), GOOGLE_PROFILE_URL],
     areaServed: AREA_SERVED.map((name) => ({
       '@type': 'City',
       name,

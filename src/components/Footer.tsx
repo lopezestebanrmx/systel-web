@@ -1,6 +1,6 @@
-import { CONTACT_EMAIL, FACEBOOK_URL, HOURS_LABEL, INSTAGRAM_URL, LEGAL_NAME, TAGLINE, WHATSAPP_DISPLAY } from '@/site'
+import { CONTACT_EMAIL, FACEBOOK_URL, GOOGLE_PROFILE_URL, HOURS_LABEL, INSTAGRAM_URL, LEGAL_NAME, TAGLINE, WHATSAPP_DISPLAY } from '@/site'
 import { waLink } from '@/lib/whatsapp'
-import { FacebookIcon, InstagramIcon, WhatsAppIcon } from './BrandIcons'
+import { FacebookIcon, GoogleIcon, InstagramIcon, WhatsAppIcon } from './BrandIcons'
 import { Pending } from './Pending'
 
 export function Footer() {
@@ -41,6 +41,12 @@ export function Footer() {
                   Instagram <Pending what="usuario de Instagram" />
                 </span>
               )}
+            </li>
+            <li>
+              <a href={GOOGLE_PROFILE_URL} target="_blank" rel="noopener" className={link}>
+                <GoogleIcon className="size-5 text-accent" />
+                Google
+              </a>
             </li>
           </ul>
         </div>
