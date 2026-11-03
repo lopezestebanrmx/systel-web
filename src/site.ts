@@ -14,7 +14,7 @@ export const WHATSAPP_NUMBER = '522298519108'
 export const WHATSAPP_DISPLAY = '+52 229 851 9108'
 export const FACEBOOK_URL = 'https://www.facebook.com/systelmty/'
 /** null until the account is ready; the footer shows it as pending. */
-export const INSTAGRAM_URL: string | null = null
+export const INSTAGRAM_URL: string | null = 'https://www.instagram.com/systelmty/'
 export const CONTACT_EMAIL = 'systel.ventas@gmail.com'
 
 export const HOURS_LABEL = 'Lunes a sábado, 10:00 a 19:00'
