@@ -9,9 +9,14 @@ npm run dev        # Vite dev server on :5174, client-rendered (dev only)
 npm run build      # tsc -b → vite build (client) → vite build --ssr src/prerender.tsx → scripts/prerender.mjs
 npm run lint
 npm run og         # redraw public/og-systel.png (satori + resvg, brand fonts from @fontsource); commit it
+npm run garantia   # rebuild tools/garantia/generador-garantia.html from template.html (fonts + logo inlined); commit it and copy it to Pictures\Systel\marca-2026\garantia
 ```
 
 Run `npm run build && npm run lint` before calling a change done.
+
+## Warranty generator (`tools/garantia/`)
+
+A local, offline tool that is not part of the site build and is never published (customer data must stay on the owner's computer). The owner fills in a repair and downloads a branded PNG for WhatsApp (canvas, 1080 wide, at least 1350 tall, growing with the content), plus a copyable message. The warranty is 90 days from the repair date (`DAYS`). Its text covers the scope, duration, conditions and how to claim, as LFPC art. 78 asks. It names no address: art. 78 also asks for a "domicilio para reclamaciones", and the owner was told about that gap. Edit `template.html`, never the built file.
 
 ## How it works
 
