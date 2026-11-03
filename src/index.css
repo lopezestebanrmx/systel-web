@@ -9,12 +9,10 @@
 @import '@fontsource/jetbrains-mono/latin-500.css';
 
 /*
- * Light theme with two dark blocks (Software e IA and the footer).
- * Components use only the semantic tokens below; `.theme-dark` redefines them,
- * so a dark block is a class, not a second set of colors per component.
- * Contrast (WCAG 2.1), light: ink 18.7:1, muted 6.2:1 on white / 5.7:1 on page-alt,
+ * Light theme, white and page-alt sections alternating; no dark blocks (owner, 2026-11-03).
+ * Components use only the semantic tokens below, never a palette color for text.
+ * Contrast (WCAG 2.1): ink 18.7:1, muted 6.2:1 on white / 5.7:1 on page-alt,
  * accent 5.8:1 / 5.3:1, white on accent 5.8:1, danger icon 4.6:1.
- * Dark: ink 17.6:1, muted 7.1:1, accent (cian) 11.1:1, void on cian 11.1:1.
  */
 @theme {
   /* Brand palette (guide 2026). Cian is decoration only on light backgrounds: 1.8:1 on white. */
@@ -77,29 +75,11 @@
   }
 }
 
-/* A dark block: same components, brand-dark values. */
-.theme-dark {
-  --color-page: var(--color-void);
-  --color-page-alt: var(--color-grafito);
-  --color-surface: var(--color-grafito);
-  --color-line: var(--color-acero);
-  --color-ink: var(--color-hielo);
-  --color-ink-strong: var(--color-hielo);
-  --color-muted: var(--color-niebla);
-  --color-accent: var(--color-cian);
-  --color-accent-hover: var(--color-hielo);
-  --color-on-accent: var(--color-void);
-  --color-danger: var(--color-alerta);
-  color-scheme: dark;
-  background-color: var(--color-page);
-  color: var(--color-ink);
-}
-
 @utility label-mono {
   @apply font-mono text-xs font-medium tracking-[0.14em] uppercase;
 }
 
-/* White card with a subtle border and a light shadow (flat on dark blocks). */
+/* White card with a subtle border and a light shadow. */
 @utility card {
   @apply border border-line bg-surface shadow-[0_1px_2px_rgba(5,8,15,0.04),0_12px_32px_-16px_rgba(11,18,32,0.18)];
 }

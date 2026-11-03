@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-type Tone = 'base' | 'alt' | 'dark'
+type Tone = 'base' | 'alt'
 
 type Props = {
   id: string
@@ -14,7 +14,6 @@ type Props = {
 const TONES: Record<Tone, string> = {
   base: 'bg-page',
   alt: 'bg-page-alt',
-  dark: 'theme-dark',
 }
 
 /** A page section with the brand's mono "spec label" above the heading. Tones alternate to separate sections. */

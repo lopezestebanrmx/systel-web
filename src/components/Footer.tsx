@@ -6,11 +6,10 @@ import { Pending } from './Pending'
 export function Footer() {
   const link = 'inline-flex min-h-11 items-center gap-3 hover:text-accent'
   return (
-    <footer className="theme-dark pb-[max(2rem,env(safe-area-inset-bottom))]">
+    <footer className="border-t border-line bg-page pb-[max(2rem,env(safe-area-inset-bottom))]">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 pt-12 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr]">
         <div className="grid content-start gap-4">
-          {/* Dark-background variant: hielo wordmark, cian core and "MTY". */}
-          <img src="/brand/systel-firma.svg" alt="Systel MTY" width={179} height={48} className="h-12 w-auto justify-self-start" />
+          <img src="/brand/systel-firma-claro.svg" alt="Systel MTY" width={179} height={48} className="h-12 w-auto justify-self-start" />
           <p className="max-w-sm text-muted">{TAGLINE}. Hardware y desarrollo de software con IA.</p>
         </div>
         <div className="grid content-start gap-2">
