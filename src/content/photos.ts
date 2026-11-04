@@ -1,4 +1,4 @@
-// Illustrative photos (AI-generated, not real jobs): never present them as before/after, as a
+// Illustrative photos (AI-generated, not real jobs) and the coverage map: never present them as before/after, as a
 // testimonial or as "today's work". The ones that show a result carry the "Imagen ilustrativa"
 // caption. Files come from `npm run fotos` (scripts/make-photos.mjs); keep widths and sizes in sync.
 
@@ -66,11 +66,12 @@ export const PHOTOS = {
     height: 768,
     alt: 'Laptop sobre un escritorio, junto a un celular abierto en un tapete de herramientas.',
   },
-  maletin: {
-    name: 'maletin',
-    widths: [640, 1024],
-    width: 1024,
-    height: 490,
-    alt: 'Maletín de herramientas abierto sobre la mesa de una casa, junto a un celular con la pantalla rota.',
+  // Not a photo: the hexagon map of the coverage story. Its legend is HTML (Zones.tsx).
+  zonas: {
+    name: 'zonas',
+    widths: [590],
+    width: 590,
+    height: 540,
+    alt: 'Mapa de cobertura en hexágonos. Vamos a Monterrey, Guadalupe, San Nicolás y San Pedro; se negocia García, Cumbres y Santa Catarina; no cubrimos Escobedo, Apodaca ni Juárez.',
   },
 } satisfies Record<string, Photo>

@@ -28,14 +28,24 @@ function ZoneList({ Icon, title, text, zones, bar }: { Icon: LucideIcon; title: 
 export function Zones() {
   return (
     <Section id="zonas" tone="alt" label="03 · Cobertura" title="Zonas donde te visitamos">
-      <div className="mb-5">
-        <PhotoFigure
-          photo={PHOTOS.maletin}
-          className="aspect-[1024/490]"
-          sizes="(min-width: 1152px) 1104px, calc(100vw - 32px)"
-        />
-      </div>
-      <div className="grid gap-5 md:grid-cols-2">
+      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid content-start gap-3 md:col-span-2 lg:col-span-1">
+          <PhotoFigure photo={PHOTOS.zonas} sizes="(min-width: 1152px) 355px, (min-width: 1024px) 31vw, calc(100vw - 32px)" />
+          <ul className="flex flex-wrap gap-x-5 gap-y-1.5 text-sm text-muted" aria-label="Simbología del mapa">
+            <li className="flex items-center gap-2">
+              <span aria-hidden="true" className="size-3 rotate-45 border-2 border-cian bg-cian/20" />
+              Vamos
+            </li>
+            <li className="flex items-center gap-2">
+              <span aria-hidden="true" className="size-3 rotate-45 border-2 border-dashed border-cobalto" />
+              Se negocia
+            </li>
+            <li className="flex items-center gap-2">
+              <span aria-hidden="true" className="size-3 rotate-45 border-2 border-line" />
+              No cubrimos
+            </li>
+          </ul>
+        </div>
         <ZoneList
           Icon={CircleCheck}
           title="Traslado incluido"
