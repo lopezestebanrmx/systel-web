@@ -9,6 +9,7 @@ npm run dev        # Vite dev server on :5174, client-rendered (dev only)
 npm run build      # tsc -b → vite build (client) → vite build --ssr src/prerender.tsx → scripts/prerender.mjs
 npm run lint
 npm run og         # redraw public/og-systel.png (satori + resvg, brand fonts from @fontsource); commit it
+npm run fotos      # crop the illustrative photos (Pictures/Systel/fotos, or SYSTEL_FOTOS) into public/img/*.webp (sharp, 640/1024 wide); commit them
 npm run garantia   # rebuild tools/garantia/generador-garantia.html from template.html (fonts + logo inlined); commit it and copy it to Pictures\Systel\marca-2026\garantia
 ```
 
@@ -26,6 +27,7 @@ A local, offline tool that is not part of the site build and is never published 
 - **The production build ships no JavaScript.** React only renders at build time: `scripts/prerender.mjs` writes each page's markup into `dist/*.html`, strips the module script and deletes `assets/*.js`. Anything interactive must work without JS (FAQ uses `<details>`). The dev server still renders on the client (`src/main.tsx`, `src/privacy.tsx`).
 - Two pages: `index.html` and `aviso-de-privacidad/index.html` (Vite multi-page inputs). The privacy page is written as `dist/aviso-de-privacidad.html` and served at `/aviso-de-privacidad` by `cleanUrls` in `vercel.json`.
 - `src/site.ts` is the single source of business facts and SEO (`SITE_URL`, hours, zones, socials, `PAGES` titles/descriptions, the LocalBusiness JSON-LD). It must stay import-free because `vite.config.ts` imports it to fill `<!--head-->` in each HTML and to emit `robots.txt` and `sitemap.xml`. When the own domain arrives, change `SITE_URL` there only.
+- Photos (2026-11-04): AI-generated, illustrative only, never "antes y después", testimonials or "our work". `src/content/photos.ts` lists them (alt, sizes; `illustrative` = shows a result, so `PhotoFigure` adds "Imagen ilustrativa"); `scripts/make-photos.mjs` holds the crops. They sit in light sections inside a `line` border, never as a dark full-width block. Hero: banco (eager, fetchpriority high); Cómo funciona: puerta, ventosa, entrega; Servicios: rota-nueva, microscopio, laptop (with `CodeScreen`, real lines of `src/lib/whatsapp.ts`); Zonas: maletin.
 - WhatsApp: every button uses `waLink(topic)` from `src/lib/whatsapp.ts`, one prefilled message per section (reparacion, hardware, software).
 - `vercel.json`: strict CSP (`'self'` only; no third-party requests), security headers, immutable cache for `/assets/*`.
 

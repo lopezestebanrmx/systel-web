@@ -2,6 +2,8 @@ import { CircleCheck, Handshake, type LucideIcon } from 'lucide-react'
 import { ZONES_INCLUDED, ZONES_NEGOTIATED } from '@/site'
 import { REVIEW_FEE } from '@/content/home'
 import { Section } from '@/components/Section'
+import { PhotoFigure } from '@/components/PhotoFigure'
+import { PHOTOS } from '@/content/photos'
 
 function ZoneList({ Icon, title, text, zones, bar }: { Icon: LucideIcon; title: string; text: string; zones: string[]; bar: string }) {
   return (
@@ -26,6 +28,13 @@ function ZoneList({ Icon, title, text, zones, bar }: { Icon: LucideIcon; title: 
 export function Zones() {
   return (
     <Section id="zonas" tone="alt" label="03 · Cobertura" title="Zonas donde te visitamos">
+      <div className="mb-5">
+        <PhotoFigure
+          photo={PHOTOS.maletin}
+          className="aspect-[1024/490]"
+          sizes="(min-width: 1152px) 1104px, calc(100vw - 32px)"
+        />
+      </div>
       <div className="grid gap-5 md:grid-cols-2">
         <ZoneList
           Icon={CircleCheck}

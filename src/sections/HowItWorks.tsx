@@ -1,6 +1,14 @@
 import { STEPS } from '@/content/home'
 import { Section } from '@/components/Section'
 import { WhatsAppButton } from '@/components/WhatsAppButton'
+import { PhotoFigure } from '@/components/PhotoFigure'
+import { PHOTOS } from '@/content/photos'
+
+const VISIT_PHOTOS = [
+  { photo: PHOTOS.puerta, caption: 'Llegamos a tu casa u oficina', position: 'object-[50%_60%]' },
+  { photo: PHOTOS.ventosa, caption: 'Reparamos frente a ti', position: 'object-[50%_65%]' },
+  { photo: PHOTOS.entrega, caption: 'Pagas al terminar', position: 'object-[50%_68%]' },
+]
 
 export function HowItWorks() {
   return (
@@ -27,6 +35,18 @@ export function HowItWorks() {
           </li>
         ))}
       </ol>
+      <div className="mt-12 grid gap-6 sm:grid-cols-3">
+        {VISIT_PHOTOS.map(({ photo, caption, position }) => (
+          <PhotoFigure
+            key={photo.name}
+            photo={photo}
+            caption={caption}
+            position={position}
+            className="aspect-3/2 sm:aspect-4/5"
+            sizes="(min-width: 1152px) 352px, (min-width: 640px) 30vw, calc(100vw - 32px)"
+          />
+        ))}
+      </div>
       <div className="mt-10">
         <WhatsAppButton topic="reparacion">Agenda tu visita por WhatsApp</WhatsAppButton>
       </div>
