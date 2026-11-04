@@ -37,7 +37,7 @@ A local, offline tool that is not part of the site build and is never published 
 - The $300 review (trip included, credited to the repair) is for **phones only**; tablets and computers: "cotiza la revisión por WhatsApp".
 - Payment: cash or bank transfer, never card. Warranty: 90 days on repair and parts (the legal minimum, LFPC art. 77; was 30 until 2026-11-03); excludes drops, moisture, devices opened by someone else and software; sent digitally by WhatsApp.
 - Hardware line: custom desktop builds and parts; never promise home delivery or installation.
-- FixFlow is mentioned by name as our own case, with no link.
+- FixFlow is our own case. Since 2026-11-04 (owner) Software e IA links it once, from the button "Ve FixFlow, nuestro software para…" (`FIXFLOW_URL` in `src/site.ts`, new tab); no other links to it. `ChatCase` shows a real test chat with the assistant copied word for word from FixFlow's inbox (`src/content/chatCase.ts`): only cut messages (marked […]) and hide customer data, never reword, and keep calling it a test chat.
 - No invented numbers, years, testimonials, reviews, client logos or software prices. Unknown data goes in as a visible `<Pending what="…" />`.
 - No person's name or any address anywhere (site, code, commits, README). The privacy page stays short: no data collected, contact by WhatsApp, full notice shared by WhatsApp before a visit, ARCO requests to the contact email.
 - Copy is Spanish (es-MX, "tú"); code and comments are English.

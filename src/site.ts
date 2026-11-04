@@ -17,6 +17,8 @@ export const FACEBOOK_URL = 'https://www.facebook.com/systelmty/'
 export const INSTAGRAM_URL: string | null = 'https://www.instagram.com/systelmty/'
 /** Google Business Profile (service-area business, no address shown). */
 export const GOOGLE_PROFILE_URL = 'https://share.google/wL2yYKRBTq6BQGRHX'
+/** FixFlow's public landing (our own software): the only link to it, the Software e IA button (owner, 2026-11-04). */
+export const FIXFLOW_URL = 'https://fixflow-two-amber.vercel.app'
 export const CONTACT_EMAIL = 'systel.ventas@gmail.com'
 
 export const HOURS_LABEL = 'Lunes a sábado, 10:00 a 19:00'
